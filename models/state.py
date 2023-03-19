@@ -20,6 +20,7 @@ class State(BaseModel, Base):
     if getenv("HBNB_TYPE_STORAGE") != "db":
         @property
         def cities(self):
+            """ getter for cities using state.id """
             filtered_cities = []
             all_cities = storage.all('City')
             for val in all_cities.values():

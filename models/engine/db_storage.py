@@ -75,6 +75,7 @@ class DBStorage():
             self.__session.delete(obj)
 
     def reload(self):
+        """ implement a method to make session and connect database """
         Base.metadata.create_all(bind=self.__engine)
         session_fact = sessionmaker(expire_on_commit=False, bind=self.__engine)
         Session = scoped_session(session_fact)
