@@ -121,7 +121,7 @@ class HBNBCommand(cmd.Cmd):
                 key = key_val[0]
                 val = key_val[1]
                 if val[0] == '"':
-                    val = val.replace('"', "")
+                    val = val.replace('"', "").replace("_", " ")
                 else:
                     try:
                         val = int(val)
