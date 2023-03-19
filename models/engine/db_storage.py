@@ -16,6 +16,14 @@ from models.review import Review
 from models.user import User
 from models.amenity import Amenity
 
+classes = {
+    "Amenity": Amenity,
+    "User": User,
+    "City": City,
+    "State": State,
+    "Place": Place,
+    "Review": Review
+}
 
 class DBStorage():
     """
@@ -25,14 +33,6 @@ class DBStorage():
     """
     __engine = None
     __session = None
-    __classes = {
-        "Amenity": Amenity,
-        "User": User,
-        "City": City,
-        "State": State,
-        "Place": Place,
-        "Review": Review
-    }
 
     def __init__(self):
         """
@@ -48,17 +48,21 @@ class DBStorage():
                                       pool_pre_ping=True)
         if getenv("HBNB_ENV") == 'test':
             Base.metadata.drop_all(bind=self.__engine)
-        Base.metadata.create_all(bind=self.__engine)
 
     def all(self, cls=None):
         """ query all objects found in database """
         new_dict = {}
-        for classname in self.__classes:
-            if cls is None or cls is self.__classes[classname] \
+        if cls is not None:
+            objs = self.__session().query(eval(cls)).all()
+            for obj in objs:
+                new_dict[obj.__class__.__name__ + "." + obj.id] = obj
+        else:
+            for classname in classes:
+                if cls is None or cls is classes[classname] \
                            or cls is classname:
-                objs = self.__session.query(classname).all()
-                for obj in objs:
-                    new_dict[obj.__class__.__name__ + "." + obj.id] = obj
+                               objs = self.__session.query(classname).all()
+                               for obj in objs:
+                                   new_dict[obj.__class__.__name__ + "." + obj.id] = obj
         return new_dict
 
     def new(self, obj):
