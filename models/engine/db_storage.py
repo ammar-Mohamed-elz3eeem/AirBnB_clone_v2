@@ -32,7 +32,7 @@ class DBStorage():
         "State": State,
         "Place": Place,
         "Review": Review
-	}
+    }
 
     def __init__(self):
         """
@@ -54,7 +54,8 @@ class DBStorage():
         """ query all objects found in database """
         new_dict = {}
         for classname in self.__classes:
-            if cls is None or cls is self.__classes[classname] or cls is classname:
+            if cls is None or cls is self.__classes[classname] \
+                           or cls is classname:
                 objs = self.__session.query(classname).all()
                 for obj in objs:
                     new_dict[obj.__class__.__name__ + "." + obj.id] = obj
