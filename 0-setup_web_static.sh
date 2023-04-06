@@ -13,20 +13,22 @@ sudo apt-get update -y -qq;
 sudo apt-get install "$1" -y -qq;
 sudo ufw allow 'Nginx HTTP'
 
-sudo mkdir -p /data/web_static/releases/test/
+sudo mkdir -p /data/
+sudo mkdir -p /data/web_static
+sudo mkdir -p /data/web_static/releases
 sudo mkdir -p /data/web_static/shared/
-
+sudo mkdir -p /data/web_static/releases/test
+sudo touch /data/web_static/releases/test/index.html
 html=\
 "
 <html>
   <head>
   </head>
   <body>
-    Hello From static side
+    Holberton School
   </body>
 </html>
 "
-
 echo "$html" | sudo dd status=none of=/data/web_static/releases/test/index.html
 
 sudo ln -s -f /data/web_static/releases/test /data/web_static/current
