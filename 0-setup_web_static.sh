@@ -14,13 +14,12 @@ sudo apt-get install nginx -y -qq;
 sudo ufw allow 'Nginx HTTP'
 
 sudo mkdir -p /data/
-sudo mkdir -p /data/web_static
-sudo mkdir -p /data/web_static/releases
+sudo mkdir -p /data/web_static/
+sudo mkdir -p /data/web_static/releases/
 sudo mkdir -p /data/web_static/shared/
-sudo mkdir -p /data/web_static/releases/test
+sudo mkdir -p /data/web_static/releases/test/
 sudo touch /data/web_static/releases/test/index.html
-html=\
-"
+sudo echo "
 <html>
   <head>
   </head>
@@ -28,44 +27,12 @@ html=\
     Holberton School
   </body>
 </html>
-"
-echo "$html" | sudo dd status=none of=/data/web_static/releases/test/index.html
+" | sudo tee /data/web_static/releases/test/index.html
 
-sudo ln -s -f /data/web_static/releases/test /data/web_static/current
+sudo ln -s -f /data/web_static/releases/test/ /data/web_static/current
 
 sudo chown -R ubuntu:ubuntu /data/
 
-config_nginx=\
-"
-server {
-        listen 80 default_server;
-        listen [::]:80 default_server;
-
-        root /var/www/html;
-        server_name _;
-
-        add_header X-Served-By \$hostname;
-
-        location / {
-                # First attempt to serve request as file, then
-                # as directory, then fall back to displaying a 404.
-                try_files \$uri \$uri/ =404;
-        }
-
-        rewrite ^/redirect_me$ https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;
-
-		location /hbnb_static { 
-			alias /data/web_static/current; 
-		}
-
-        error_page 404 /error_404.html;
-
-        location = /error_404.html {
-                internal;
-        }
-}
-"
-
-echo "$config_nginx" | sudo dd status=none of=/etc/nginx/sites-enabled/default
+sudo sed '/listen 80 default_server/a location /hbnb_static {alias /data/web_static/current/;}' /etc/nginx/sites-enabled/default
 
 sudo service nginx restart
