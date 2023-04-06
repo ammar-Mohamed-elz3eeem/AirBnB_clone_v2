@@ -10,7 +10,7 @@
 # 	/data/web_static/releases/test/
 
 sudo apt-get update -y -qq;
-sudo apt-get install "$1" -y -qq;
+sudo apt-get install nginx -y -qq;
 sudo ufw allow 'Nginx HTTP'
 
 sudo mkdir -p /data/
