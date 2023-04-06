@@ -12,13 +12,15 @@
 function install() {
 	command -v "$1" > /dev/null;
 
-	if [[ $? -ne 0 ]]; then
+	if [[ $EXITCODE -ne 0 ]]; then
 		sudo apt-get update -y -qq;
 		sudo apt-get install "$1" -y -qq;
 	fi;
 }
 
 install nginx
+
+sudo ufw allow 'Nginx HTTP'
 
 sudo mkdir -p /data/web_static/releases/test/
 sudo mkdir -p /data/web_static/shared/
