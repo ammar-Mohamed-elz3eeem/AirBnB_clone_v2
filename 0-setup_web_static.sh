@@ -74,3 +74,5 @@ server {
 "
 
 echo "$config_nginx" | sudo dd status=none of=/etc/nginx/sites-enabled/default
+
+sudo service nginx restart
