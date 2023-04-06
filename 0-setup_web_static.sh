@@ -6,7 +6,7 @@
 # - create folders /data/web_static/shared/
 # - create index.html inside /data/web_static/releases/test/
 # - with fake html content on it
-# - make /data/web_static/current symbolic link to 
+# - make /data/web_static/current symbolic link to
 # 	/data/web_static/releases/test/
 
 sudo apt-get update -y -qq;
