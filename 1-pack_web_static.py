@@ -8,6 +8,11 @@ from fabric.api import *
 
 
 def do_pack():
+    """
+    This function will archieve
+    all my files in web static folder
+    """
+
     time = datetime.now()
     arcieve_name = "web_static_{}.tgz".format(time.strftime("%Y%m%d%H%M%S"))
     local("mkdir -p versions")
