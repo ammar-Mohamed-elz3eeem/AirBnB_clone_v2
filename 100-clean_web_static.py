@@ -48,13 +48,15 @@ def do_deploy(archive_path):
         path = "/data/web_static/releases/"
         put(archive_path, "/tmp/")
         run("sudo mkdir -p {}{}/".format(path, file_name))
-        run("sudo tar -xzf /tmp/{} -C {}{}/".format(
-            fn, path, file_name))
+        run("sudo tar -xzf /tmp/{} -C {}{}/"
+            .format(fn, path, file_name))
         run("sudo rm /tmp/{}".format(fn))
-        run("sudo mv {0}{1}/web_static/* {0}{1}/".format(path, file_name))
+        run("sudo mv {0}{1}/web_static/* {0}{1}/"
+            .format(path, file_name))
         run("sudo rm -rf {}{}/web_static/".format(path, file_name))
         run("sudo rm -rf /data/web_static/current")
-        run("sudo ln -s {}{}/ /data/web_static/current".format(path, file_name))
+        run("sudo ln -s {}{}/ /data/web_static/current"
+            .format(path, file_name))
         return True
     except Exception as e:
         return False
@@ -74,6 +76,7 @@ def deploy():
 
 
 def do_clean(number=0):
+    """ clean all releases from my web servers """
     number = int(number)
     number = 1 if number <= 0 else number
     tars = sorted(listdir("./versions"))
