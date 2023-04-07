@@ -18,16 +18,15 @@ def do_clean(number=0):
         in the system, if number less than or equal to 1 so
         system will kep only most recent release
     """
+    number = 1 if int(number) == 0 else int(number)
 
-    number = int(number)
-    number = 1 if number <= 0 else number
-    tars = sorted(os.listdir("./versions"))
-    length = len(tars) - number
-
+    archives = sorted(os.listdir("versions"))
+    [archives.pop() for i in range(number)]
     with lcd("versions"):
-        [local(f"rm ./{tars[i]}") for i in range(length)]
+        [local("rm ./{}".format(a)) for a in archives]
 
     with cd("/data/web_static/releases"):
-        archs = run("ls -tr").split()
-        length = len(archs) - number
-        [run("sudo rm -rf ./{}".format(archs[i])) for i in range(length)]
+        archives = run("ls -tr").split()
+        archives = [a for a in archives if "web_static_" in a]
+        [archives.pop() for i in range(number)]
+        [run("rm -rf ./{}".format(a)) for a in archives]
