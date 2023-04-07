@@ -20,7 +20,7 @@ def do_pack():
     local("mkdir -p versions")
     create = local("tar -czvf versions/{} web_static".format(arcieve_name))
     if create is not None:
-        return arcieve_name
+        return "versions/{}".format(arcieve_name)
     else:
         return None
 
@@ -59,5 +59,6 @@ def deploy():
 
     create = do_pack()
     if create is None:
+        print("REALLY NONE")
         return False
-    return do_deploy(create)
+    do_deploy(create)
