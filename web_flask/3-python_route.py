@@ -37,13 +37,14 @@ def c_func(text):
 
 @app.route('/python/', strict_slashes=False, defaults={"text": "is cool"})
 @app.route('/python/<string:text>', strict_slashes=False)
-def python_func(text = "is cool"):
+def python_func(text):
     """function to handle requests made to /python/(<text>) route
 
     Returns:
         string: c <text = is cool>
     """
     return "Python " + text.replace("_", " ")
+
 
 if __name__ == "__main__":
     app.run('0.0.0.0')
