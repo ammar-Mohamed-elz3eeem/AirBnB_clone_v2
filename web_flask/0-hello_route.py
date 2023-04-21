@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/python3
 """Flask web framework module used for routing /
 path with content set to Hello HBNB!"""
 from flask import Flask
