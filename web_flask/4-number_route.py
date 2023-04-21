@@ -50,8 +50,11 @@ def python_func(text):
 def number_func(number):
     """function to handle requests made to /number/<int:number> route
 
+    Args:
+        number (int): number to be shown on the page
+
     Returns:
-        string: {number} is a number
+        string: <number> is a number
     """
     return f"{number} is a number"
 
