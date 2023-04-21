@@ -25,11 +25,12 @@ classes = {
     "Review": Review
 }
 
+
 class DBStorage():
     """
     DBStorage Class:
-    This class will be responsible for creating new storage
-    for database and will work as database management storage
+        This class will be responsible for creating new storage
+        for database and will work as database management storage
     """
     __engine = None
     __session = None
@@ -60,9 +61,9 @@ class DBStorage():
             for classname in classes:
                 if cls is None or cls is classes[classname] \
                            or cls is classname:
-                               objs = self.__session.query(classname).all()
-                               for obj in objs:
-                                   new_dict[obj.__class__.__name__ + "." + obj.id] = obj
+                    objs = self.__session.query(classname).all()
+                    for obj in objs:
+                        new_dict[obj.__class__.__name__ + "." + obj.id] = obj
         return new_dict
 
     def new(self, obj):
@@ -84,3 +85,7 @@ class DBStorage():
         session_fact = sessionmaker(expire_on_commit=False, bind=self.__engine)
         Session = scoped_session(session_fact)
         self.__session = Session
+
+    def close(self):
+        """this function will handle closing db session"""
+        self.__session.remove()
