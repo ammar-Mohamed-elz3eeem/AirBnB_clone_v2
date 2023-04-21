@@ -14,6 +14,7 @@ def hello_world():
     """
     return 'Hello HBNB!'
 
+
 @app.route('/hbnb', strict_slashes=False)
 def hbnb_func():
     """function to handle requests made to /hbnb route
