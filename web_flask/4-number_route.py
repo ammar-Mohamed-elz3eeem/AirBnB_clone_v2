@@ -46,17 +46,17 @@ def python_func(text):
     return "Python " + text.replace("_", " ")
 
 
-@app.route('/number/<int:number>', strict_slashes=False)
-def number_func(number):
-    """function to handle requests made to /number/<int:number> route
+@app.route('/number/<int:n>', strict_slashes=False)
+def number_func(n):
+    """function to handle requests made to /number/<int:n> route
 
     Args:
-        number (int): number to be shown on the page
+        n (int): number to be shown on the page
 
     Returns:
         string: <number> is a number
     """
-    return f"{number} is a number"
+    return "{} is a number".format(n)
 
 
 if __name__ == "__main__":
