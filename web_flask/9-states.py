@@ -1,41 +1,27 @@
 #!/usr/bin/python3
-"""states and state modeule: this module will define two routes
-into our AirBnB Application:
-    1. route for getting all states /states
-    2. route for getting single state alongside
-        with its cities /state/<string:id>
 """
+starts a Flask web application
+"""
+
 from flask import Flask, render_template
 from models import storage
 app = Flask(__name__)
 
 
-@app.route("/states", strict_slashes=False)
-@app.route("/states/<string:uuid>", strict_slashes=False)
-def state_route(uuid=None):
-    """Retrieve only single state from states table, if no uuid passed
-    then will return list of all states in database
-
-    Args:
-        uuid (string): id of the state we want to retrive from all states
-
-    Returns:
-        string: html page to be rendered on
-        reuqest to /states/<string:uuid> route
-    """
-    if uuid is not None:
-        state_id = f"State.{uuid}"
+@app.route('/states', strict_slashes=False)
+@app.route('/states/<state_id>', strict_slashes=False)
+def states(state_id=None):
+    """display state or not found if state_id is given, otherwise all states"""
     states = storage.all("State")
-    return render_template("9-states.html", states=states, 
-                           state_id=state_id if uuid else None)
+    if state_id is not None:
+        state_id = 'State.' + state_id
+    return render_template('9-states.html', states=states, state_id=state_id)
 
 
 @app.teardown_appcontext
-def teardown_db(e):
-    """teardown db after app is finished"""
-    if storage is not None:
-        storage.close()
+def teardown_db(exception):
+    """close db connection"""
+    storage.close()
 
-
-if __name__ == "__main__":
-    app.run('0.0.0.0', 5000)
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port='5000')
