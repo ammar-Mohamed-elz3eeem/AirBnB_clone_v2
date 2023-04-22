@@ -25,7 +25,7 @@ def render_all_states():
         string: html page to be rendered om reuqest to /states_list route
     """
     return render_template("7-states_list.html",
-                           states=storage.all("State").values())
+                           total=storage.all("State").values())
 
 
 if __name__ == "__main__":
