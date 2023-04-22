@@ -11,7 +11,8 @@ app = Flask(__name__)
 def filters_route():
     states = storage.all("State").values()
     amentities = storage.all("Amenity").values()
-    return render_template("10-hbnb_filters.html", states=states, amentities=amentities)
+    return render_template("10-hbnb_filters.html",
+                           states=states, amentities=amentities)
 
 
 @app.teardown_appcontext
