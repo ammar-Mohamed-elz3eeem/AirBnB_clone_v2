@@ -21,6 +21,7 @@ class BaseModel:
     """The BaseModel class from which future classes will be derived"""
 
     if models.s_type == "db":
+        __table_args__ = {'mysql_engine':'InnoDB', 'mysql_default_charset': 'latin1'}
         id = Column(String(60), primary_key=True, nullable=False)
         created_at = Column(DateTime(), nullable=False, default=datetime.utcnow())
         updated_at = Column(DateTime(), nullable=False, default=datetime.utcnow())
