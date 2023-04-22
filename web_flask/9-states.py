@@ -26,7 +26,8 @@ def state_route(uuid=None):
     if uuid is not None:
         state_id = f"State.{uuid}"
     states = storage.all("State")
-    return render_template("9-states.html", states=states, state_id=state_id)
+    return render_template("9-states.html", states=states, 
+                           state_id=state_id if uuid else None)
 
 
 @app.teardown_appcontext
