@@ -40,6 +40,8 @@
 	border-radius: 4px;
 	height: 300px;
 	overflow-y: scroll;
+	z-index: 1;
+	position: relative;
 }
 
 .locations:hover .popover {
