@@ -11,12 +11,19 @@ and render this states in template 7-states_list.html"""
 
 @app.route("/states_list", strict_slashes=False)
 def render_all_states():
+    """render_all_states: will render all states
+    saved on database in a 7-states_list.html view template
+
+    Returns:
+        string: html page to be rendered om reuqest to /states_list route
+    """
     return render_template("7-states_list.html",
                            states=storage.all("State").values())
 
 
 @app.teardown_appcontext
 def teardown_db(e):
+    """teardown db after app is finished"""
     storage.close()
 
 
