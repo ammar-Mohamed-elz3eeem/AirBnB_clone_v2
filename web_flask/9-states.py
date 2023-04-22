@@ -21,7 +21,8 @@ def states(state_id=None):
 @app.teardown_appcontext
 def teardown_db(exception):
     """close db connection"""
-    storage.close()
+    if storage is not None:
+        storage.close()
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port='5000')
