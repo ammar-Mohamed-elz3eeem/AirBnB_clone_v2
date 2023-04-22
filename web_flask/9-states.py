@@ -1,6 +1,5 @@
 #!/usr/bin/python3
-"""
-states and state modeule: this module will define two routes
+"""states and state modeule: this module will define two routes
 into our AirBnB Application:
     1. route for getting all states /states
     2. route for getting single state alongside
