@@ -7,16 +7,7 @@ into our AirBnB Application:
 """
 from flask import Flask, render_template
 from models import storage
-
-
 app = Flask(__name__)
-
-
-@app.teardown_appcontext
-def teardown_db(e):
-    """teardown db after app is finished"""
-    if storage is not None:
-        storage.close()
 
 
 @app.route("/states/<string:uuid>", strict_slashes=False)
@@ -45,6 +36,13 @@ def states_route():
     """
     states = storage.all("State").values()
     return render_template("7-states_list.html", total=states)
+
+
+@app.teardown_appcontext
+def teardown_db(e):
+    """teardown db after app is finished"""
+    if storage is not None:
+        storage.close()
 
 
 if __name__ == "__main__":
