@@ -11,12 +11,12 @@ and render this states in template 7-states_list.html"""
 
 @app.route("/states_list", strict_slashes=False)
 def render_all_states():
-    print(storage.all("State"))
     return render_template("7-states_list.html",
-                           states=storage.all(State).values())
+                           states=storage.all("State").values())
 
 
-with app.teardown_appcontext:
+@app.teardown_appcontext
+def teardown_db(e):
     storage.close()
 
 
