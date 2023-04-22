@@ -10,9 +10,11 @@ from models import storage
 app = Flask(__name__)
 
 
+@app.route("/states", strict_slashes=False)
 @app.route("/states/<string:uuid>", strict_slashes=False)
-def state_route(uuid):
-    """Retrieve only single state from states table
+def state_route(uuid=None):
+    """Retrieve only single state from states table, if no uuid passed
+    then will return list of all states in database
 
     Args:
         uuid (string): id of the state we want to retrive from all states
@@ -21,21 +23,10 @@ def state_route(uuid):
         string: html page to be rendered on
         reuqest to /states/<string:uuid> route
     """
+    if uuid is not None:
+        state_id = f"State.{uuid}"
     states = storage.all("State")
-    state = states.get(f"State.{uuid}")
-    return render_template("9-states.html", state=state)
-
-
-@app.route("/states", strict_slashes=False)
-def states_route():
-    """states_route: will render all states
-    saved on database in a 7-states_list.html view template
-
-    Returns:
-        string: html page to be rendered on reuqest to /states_list route
-    """
-    states = storage.all("State").values()
-    return render_template("7-states_list.html", total=states)
+    return render_template("9-states.html", states=states, state_id=state_id)
 
 
 @app.teardown_appcontext
